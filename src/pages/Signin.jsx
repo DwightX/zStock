@@ -3,6 +3,7 @@ import {useState} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
 import {ReactComponent as ArrowRightIcon} from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth' 
 
 
 function Signin() {
@@ -17,9 +18,28 @@ const navigate = useNavigate()
 const onChange = (e) => {
     setFormData((prevState) => ({
         ...prevState,
-        [e.target.id]:e.target.value
+        [e.target.id]: e.target.value,
     }))
 }
+
+const onSubmit = async (e) =>{
+    e.preventDefault()
+
+    try{
+        const auth = getAuth()
+        const userCredential = await signInWithEmailAndPassword
+        (auth,email,password)
+    
+        if(userCredential.user){
+            navigate('/')
+        }
+    }catch(error){
+        console.log(error);
+    }
+
+
+}
+
 
     return (
         <>
@@ -28,7 +48,7 @@ const onChange = (e) => {
                 <p className='pageHeader'>Welcome Back!</p>
             </header>
             <main>
-                <form>
+                <form onSubmit={onSubmit}>
                     <input type="email" className='emailInput' placeholder='Email' id='email'
                     value={email} onChange={onChange}>
                     </input>
