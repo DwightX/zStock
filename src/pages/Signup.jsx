@@ -6,6 +6,8 @@ import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 import { getAuth, createUserWithEmailAndPassword,updateProfile } from "firebase/auth"
 import {db} from '../firebase.config'
 import { setDoc, doc, serverTimestamp} from 'firebase/firestore'
+import {toast} from "react-toastify"
+
 
 
 
@@ -17,7 +19,7 @@ const [formData,setFormData] = useState({
     password:''
 })
 
-const{name,email,password} = FormData
+const{name,email,password} = formData
 
 const navigate = useNavigate()
 const onChange = (e) => {
@@ -42,7 +44,7 @@ const onSubmit = async (e) => {
         await setDoc(doc(db, 'users',user.uid), formDataCopy) //updating database and add user to user collection
         navigate('/')
     }catch(error){
-        console.log(error);
+        toast.error("Registration Error")
     }
 }
 
@@ -56,7 +58,7 @@ const onSubmit = async (e) => {
                 <form onSubmit={onSubmit}>
 
                 <input type="text" className='nameInput' placeholder='Name' id='name'
-                     value={email} onChange={onChange}/>
+                     value={name} onChange={onChange}/>
 
                 <input type="email" className='emailInput' placeholder='Email' id='email'
                     value={email} onChange={onChange}/>

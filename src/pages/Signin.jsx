@@ -4,17 +4,19 @@ import {Link,useNavigate} from 'react-router-dom'
 import {ReactComponent as ArrowRightIcon} from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth' 
-
+import {toast} from "react-toastify"
 
 function Signin() {
 const [showPassword,setShowPassword] = useState(false)
 const [formData,setFormData] = useState({
     email:'',
-    password:''
+    password:'',
 })
 
-const{email,password} = FormData
+const{email,password} = formData
+
 const navigate = useNavigate()
+
 const onChange = (e) => {
     setFormData((prevState) => ({
         ...prevState,
@@ -34,7 +36,7 @@ const onSubmit = async (e) =>{
             navigate('/')
         }
     }catch(error){
-        console.log(error);
+        toast.error('Bad User Credits')
     }
 
 
