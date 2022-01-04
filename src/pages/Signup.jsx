@@ -7,6 +7,7 @@ import { getAuth, createUserWithEmailAndPassword,updateProfile } from "firebase/
 import {db} from '../firebase.config'
 import { setDoc, doc, serverTimestamp} from 'firebase/firestore'
 import {toast} from "react-toastify"
+import Oauth from '../components/Oauth'
 
 
 
@@ -88,7 +89,7 @@ const onSubmit = async (e) => {
                         </button>
                     </div>
                 </form>
-                {/* google auth*/}
+                <Oauth/>
                 <Link to="/sign-in" className='registerLink'>
                     Sign in Instead
                 </Link>
